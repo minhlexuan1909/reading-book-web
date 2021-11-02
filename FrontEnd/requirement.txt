@@ -1,0 +1,8 @@
+- Basic:
+npm install
+
+- Prevent body scroll (https://www.npmjs.com/package/body-scroll-toggle):
+npm i body-scroll-toggle
+
+- React router dom:
+npm install react-router-dom

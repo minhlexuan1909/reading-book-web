@@ -1,0 +1,40 @@
+.home {
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(../../img/home-background.jpg);
+  background-size: cover;
+  height: 100vh;
+  padding: 0px 110px;
+}
+.home__text {
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+}
+.home__read-now-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  background: orange;
+  border: 1px solid orange;
+  border-radius: 50px;
+  height: 40px;
+  width: max-content;
+  margin-top: 20px;
+  padding: 10px 20px;
+  transition: all 0.2s;
+}
+.home__read-now-btn:hover {
+  color: orange;
+  background-color: white;
+}
+.read-now-btn__text::before {
+  content: "";
+  display: block;
+  height: 0;
+  margin-top: -4px;
+}

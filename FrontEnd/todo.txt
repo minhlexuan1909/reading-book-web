@@ -1,0 +1,7 @@
+Truyền prop cho BookLib để hiện theo top sách,
+all, và thể loại được chọn
+
+prop: Title ("Thư viện", "Văn học", ....)
+Lấy ra showBookList = bookList.filter(..) theo title,
+hiển thị bằng cách map showBookList thay vì bookList
+

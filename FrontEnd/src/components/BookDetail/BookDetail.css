@@ -1,0 +1,199 @@
+.book-detail__overlay {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  /* height: 100%; */
+  height: max(100%, 100vh - 50px);
+  width: 100%;
+}
+.book-detail__outside-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+.book-detail__wrapper {
+  position: relative;
+  z-index: 100;
+  background-color: white;
+  width: 800px;
+  margin-top: 30px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+  animation: goUp 0.7s;
+}
+.book-detail__closeBtn {
+  z-index: 100;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+}
+.book-detail__book-image {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.book-detail__book-image > img {
+  height: 100%;
+}
+.book-detail__over-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.book-detail__visionable-image {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  background-color: rgba(72, 72, 72, 0.7);
+}
+/* .book-detail__image-fade {
+  background-color: rgba(72, 72, 72, 0.7);
+} */
+/* .book-detail__image-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 700px;
+  background: linear-gradient(
+    180deg,
+    transparent 62%,
+    rgba(0, 0, 0, 0.00345888) 63.94%,
+    rgba(0, 0, 0, 0.014204) 65.89%,
+    rgba(0, 0, 0, 0.0326639) 67.83%,
+    rgba(0, 0, 0, 0.0589645) 69.78%,
+    rgba(0, 0, 0, 0.0927099) 71.72%,
+    rgba(0, 0, 0, 0.132754) 73.67%,
+    rgba(0, 0, 0, 0.207076) 75.61%,
+    rgba(0, 0, 0, 0.252924) 77.56%,
+    rgba(0, 0, 0, 0.307246) 79.5%,
+    rgba(0, 0, 0, 0.35729) 81.44%,
+    rgba(0, 0, 0, 0.401035) 83.39%,
+    rgba(0, 0, 0, 0.457336) 85.33%,
+    rgba(0, 0, 0, 0.505796) 87.28%,
+    rgba(0, 0, 0, 0.5576541) 89.22%,
+    rgba(0, 0, 0, 0.6) 91.17%
+  );
+  /* background: linear-gradient(
+    to top,
+    #2a2a2a,
+    #595959,
+    #8d8d8d,
+    #c4c4c4,
+    #ffffff,
+    
+  ); 
+} */
+.book-detail__float-zone-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.book-detail__float-zone {
+  /* z-index: 101; */
+  position: absolute;
+  height: calc(100% - 100px);
+  top: 100px;
+  left: 80px;
+  display: flex;
+  flex-direction: row;
+  /* width: 100%; */
+}
+.book-detail__left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.book-detail__over-image {
+  width: 150px;
+  height: 230px;
+  min-width: 150px;
+  min-height: 230px;
+  /* background-image: url(../../img/chuyen-con-meo-day-hai-au-bay-tb-2017.jpg); */
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-position: center;
+  background-size: cover;
+}
+.book-detail__readNowBtn {
+  background-color: orange;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  width: fit-content;
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+/* .book-detail__over-image > img {
+  width: 100%;
+  object-fit: fill;
+} */
+.book-detail__title-and-desc {
+  display: flex;
+  flex-direction: column;
+}
+.book-detail__title {
+  position: relative;
+  /* margin-left: 20px;
+  margin-top: 100px; */
+  padding-top: 70px;
+  padding-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+}
+.book-detail__description {
+  /* display: flex;
+  flex-direction: column; */
+  overflow: auto;
+  padding: 0px 20px 0px 20px;
+  margin-top: 60px;
+  /* width: 500px; */
+}
+.orange-line {
+  height: 20px;
+  background-color: orange;
+}
+
+i {
+  flex-basis: 18px;
+  color: orange;
+  margin-right: 10px;
+}
+.book-detail__desc {
+  display: flex;
+  /* align-items: center; */
+  margin-bottom: 10px;
+}
+.description-text::before {
+  content: "";
+  display: block;
+  height: 0;
+  margin-top: -3px;
+}
+.description-text {
+  white-space: pre-wrap;
+}
+
+/* _________________________________________________ */
+@keyframes goUp {
+  from {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}

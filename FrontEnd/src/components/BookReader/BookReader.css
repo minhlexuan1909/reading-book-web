@@ -1,0 +1,13 @@
+.book-reader {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 50px);
+}
+.book-reader-wrapper {
+  width: 60%;
+  box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 20%);
+}
+.book-reader-wrapper embed {
+  height: 100%;
+  width: 100%;
+}
