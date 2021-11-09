@@ -6,3 +6,5 @@ App render lần 1 -> BookReader chạy luôn -> bookList chưa được cập n
 App render lần 1 -> || BookReader chạy -> check bookList ở BookReader đã được cập nhật chưa (bookList.length !== 0) ||
 (Mục đích là để pass qua lần render đầu khi useEffect chưa chạy và bookList chưa có gì nên check để k bị lỗi)
 App render lần 1 -> || pass qua BookReader || -> useEffect -> bookList cập nhật -> App render lần 2 -> BookReader 
+
+border-radius cả cha và con để trắng bị vết trắng ở góc

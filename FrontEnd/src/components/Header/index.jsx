@@ -1,9 +1,20 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useContext } from "react";
 import "./Header.css";
+import { BookContext } from "../../App";
 
 export const Header = () => {
   const typeListRef = useRef();
+  const userFuncRef = useRef();
+
+  const {
+    setToken,
+    isLoginSuccessfully,
+    setIsLoginSuccessfully,
+    setUserFullname,
+    userLastname,
+    isAdmin,
+  } = useContext(BookContext);
+
   const typeOnMouseOverHandler = () => {
     typeListRef.current.classList.remove("type-list--disappear");
     typeListRef.current.classList.add("type-list--appear");
@@ -12,11 +23,26 @@ export const Header = () => {
     typeListRef.current.classList.add("type-list--disappear");
     typeListRef.current.classList.remove("type-list--appear");
   };
+  const userOnMouseOverHandler = () => {
+    userFuncRef.current.classList.remove("type-list--disappear");
+    userFuncRef.current.classList.add("type-list--appear");
+  };
+  const userOnMouseLeaveHandler = () => {
+    userFuncRef.current.classList.add("type-list--disappear");
+    userFuncRef.current.classList.remove("type-list--appear");
+  };
+  const logoutBtnOnClickHandler = () => {
+    setToken("token", "");
+    setIsLoginSuccessfully(false);
+    setUserFullname("fullname", "");
+  };
+
   return (
     <div className="header">
-      <div className="header__logo">
+      {console.log("Admin la: " + isAdmin)}
+      <a href="/" className="header__logo">
         <img src={require("../../img/white-logo.png").default} alt="" />
-      </div>
+      </a>
       <ul className="header__nav">
         <li className="header-nav__item header__btn">
           <a className="header-nav__text" href="/">
@@ -46,21 +72,54 @@ export const Header = () => {
           </ul>
         </li>
         <li className="header-nav__item header__btn">
-          <div className="header-nav__text">Tác giả</div>
-        </li>
-        <li className="header-nav__item header__btn">
           <a className="header-nav__text" href="/library">
             Thư viện sách
           </a>
         </li>
       </ul>
       <div className="header__user">
-        <div className="header-user__login-btn header__btn">
-          <div className="header-nav__text">Đăng nhập</div>
-        </div>
-        <div className="header-user__register-btn header__btn">
-          <div className="header-nav__text">Đăng ký</div>
-        </div>
+        {isLoginSuccessfully ? (
+          <div
+            className="header__hello-text header__btn"
+            onMouseOver={userOnMouseOverHandler}
+            onMouseLeave={userOnMouseLeaveHandler}
+          >
+            Xin chào, {userLastname}
+            <div
+              ref={userFuncRef}
+              className="header__user-function type-list--disappear"
+            >
+              {isAdmin ? (
+                <a className="type-list__item" href="/upload">
+                  <div className="type-list__text">Thêm sách</div>
+                </a>
+              ) : (
+                <></>
+              )}
+              <div
+                className="header__logoutBtn"
+                onClick={logoutBtnOnClickHandler}
+              >
+                <div className="type-list__item">
+                  <a className="type-list__text" href="/login">
+                    Đăng xuất
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="header-user__login-btn header__btn">
+              <a className="header-nav__text" href="./login">
+                Đăng nhập
+              </a>
+            </div>
+            <div className="header-user__register-btn header__btn">
+              <div className="header-nav__text">Đăng ký</div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

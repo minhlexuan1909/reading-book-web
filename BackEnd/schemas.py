@@ -1,3 +1,4 @@
+from os import access
 from pydantic import BaseModel
 
 
@@ -20,3 +21,30 @@ class BookInfo(BookInfoBase):
 
     class Config:
         orm_mode = True
+
+
+class UserInfoBase(BaseModel):
+    username: str
+    userRole: str
+    fullname: str
+
+
+class UserCreate(UserInfoBase):
+    password: str
+
+
+class UserInfo(UserInfoBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class UserAuthenticate(BaseModel):
+    username: str
+    password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str

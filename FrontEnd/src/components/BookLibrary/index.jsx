@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
 import { BookContext } from "../../App";
 import "./BookLibrary.css";
@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react/cjs/react.development";
 
 export const BookLibrary = ({ title }) => {
-  const { setIsSeeingDetail, bookList } = useContext(BookContext);
+  const { setIsSeeingDetail, bookList, isLoginSuccessfully } =
+    useContext(BookContext);
   const history = useHistory();
   const url = useLocation();
   const bodyScroll = require("body-scroll-toggle");
@@ -31,8 +32,6 @@ export const BookLibrary = ({ title }) => {
       setBookShow(tmpBookList.filter((item) => item.bookType === title));
     }
   }, [bookList]);
-  // console.log(bookShow);
-  // console.log(bookList);
   return (
     <div className="book-lib">
       <div className="book-lib-wrapper">
@@ -66,9 +65,6 @@ export const BookLibrary = ({ title }) => {
                         className="book-card__detail-btn book-card__btn"
                       >
                         Chi tiết
-                      </div>
-                      <div className="book-card__preview-btn book-card__btn">
-                        Xem qua
                       </div>
                     </div>
                   </div>

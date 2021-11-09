@@ -14,3 +14,13 @@ class Book(Base):
     descriptions = Column(Unicode)
     viewCount = Column(Integer)
     content = Column(Unicode)
+
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True)
+    password = Column(String)
+    userRole = Column(String)
+    fullname = Column(String, unique=True)

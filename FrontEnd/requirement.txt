@@ -6,3 +6,6 @@ npm i body-scroll-toggle
 
 - React router dom:
 npm install react-router-dom
+
+- Cookies
+npm install react-cookie

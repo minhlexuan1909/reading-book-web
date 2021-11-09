@@ -5,6 +5,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { BookContext } from "../../App";
 import "./BookDetail.css";
+import "../../animations.css";
 
 export const BookDetail = () => {
   let { id } = useParams();

@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.functions import user
 import models, schemas
+import bcrypt
 
 
 def post_book(db: Session, book: schemas.BookCreate):
@@ -44,3 +46,36 @@ def put_book(db: Session, book: schemas.BookCreate, id: int):
 def delete_book(db: Session, id: int):
     db.query(models.Book).filter(models.Book.id == id).delete()
     db.commit()
+
+
+# User
+def post_user(db: Session, user: schemas.UserCreate):
+    hashed_password = bcrypt.hashpw(user.password.encode(), bcrypt.gensalt())
+    db_user = models.User(
+        username=user.username,
+        password=hashed_password,
+        userRole=user.userRole,
+        fullname=user.fullname,
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
+def get_user(db: Session):
+    return db.query(models.User).all()
+
+
+def get_user_by_username(db: Session, username: str):
+    return db.query(models.User).filter(models.User.username == username).first()
+
+
+def check_username_password(db: Session, user: schemas.UserAuthenticate):
+    db_user_info = get_user_by_username(db, username=user.username)
+    return bcrypt.checkpw(user.password.encode(), db_user_info.password.encode())
+    # return {
+    #     "user-pw": user.password.encode("utf-8"),
+    #     "db-pw": db_user_info.password.encode("utf-8"),
+    # }
+    # print(type(db_user_info.password))
