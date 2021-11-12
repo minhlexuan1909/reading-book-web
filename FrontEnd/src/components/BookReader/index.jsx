@@ -6,9 +6,7 @@ import "./BookReader.css";
 export const BookReader = () => {
   const { id } = useParams();
   const { bookList } = useContext(BookContext);
-  console.log(bookList);
   const [book] = bookList.filter((item) => item.id === parseInt(id));
-  console.log(book);
   return (
     <div className="book-reader">
       {bookList.length !== 0 ? (

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.functions import user
 import models, schemas
 import bcrypt
+from fastapi import HTTPException
 
 
 def post_book(db: Session, book: schemas.BookCreate):
@@ -50,6 +50,9 @@ def delete_book(db: Session, id: int):
 
 # User
 def post_user(db: Session, user: schemas.UserCreate):
+    db_user_info = get_user_by_username(db, user.username)
+    if db_user_info is not None:
+        raise HTTPException(detail="Tên tài khoản đã tồn tại", status_code=409)
     hashed_password = bcrypt.hashpw(user.password.encode(), bcrypt.gensalt())
     db_user = models.User(
         username=user.username,

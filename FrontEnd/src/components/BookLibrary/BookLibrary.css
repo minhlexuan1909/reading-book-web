@@ -24,6 +24,7 @@
   width: 20%;
 }
 .book-lib__book-card-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 400px;
@@ -35,6 +36,13 @@
 }
 .book-lib__book-card-wrapper:hover {
   transform: translateY(-10px);
+}
+.book-card__deleteBtn {
+  z-index: 1;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 25px;
 }
 .book-card__image {
   /* flex-grow: 1; */

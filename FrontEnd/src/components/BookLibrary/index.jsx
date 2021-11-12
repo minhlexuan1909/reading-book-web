@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react/cjs/react.development";
 
 export const BookLibrary = ({ title }) => {
-  const { setIsSeeingDetail, bookList, isLoginSuccessfully } =
+  const { setIsSeeingDetail, bookList, setBookList, isAdmin, token } =
     useContext(BookContext);
   const history = useHistory();
   const url = useLocation();
@@ -20,6 +20,20 @@ export const BookLibrary = ({ title }) => {
     document.body.style.top = `-${window.scrollY}px`;
   };
   const [bookShow, setBookShow] = useState([]);
+  const deleteBtnOnClickHandler = async (id) => {
+    let resp = await fetch(`http://127.0.0.1:8000/book/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token["token"]}`,
+      },
+    });
+    resp = await resp.json();
+    console.log(resp);
+
+    const tmpBookList = bookList.filter((item) => item.id !== id);
+    setBookList([...tmpBookList]);
+  };
   useEffect(() => {
     if (title === "Thư viện") {
       setBookShow(bookList);
@@ -41,6 +55,16 @@ export const BookLibrary = ({ title }) => {
             {bookShow.map((book) => (
               <div className="book-lib__book-card" key={book.id}>
                 <div className="book-lib__book-card-wrapper">
+                  {isAdmin ? (
+                    <div
+                      className="book-card__deleteBtn"
+                      onClick={() => deleteBtnOnClickHandler(book.id)}
+                    >
+                      <i className="fas fa-times"></i>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div
                     className="book-card__image"
                     style={{

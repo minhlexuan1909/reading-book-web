@@ -11,7 +11,7 @@ import { createContext, useState, useEffect } from "react";
 import { BookTypeRoute } from "./Route/BookTypeRoute";
 import { BookUploadRoute } from "./Route/BookUploadRoute";
 import { BookReaderRoute } from "./Route/BookReaderRoute";
-import { Login } from "./components/Login";
+import { User } from "./components/User";
 import { useCookies } from "react-cookie";
 
 const BookContext = createContext({});
@@ -84,6 +84,7 @@ function App() {
     isSeeingDetail,
     setIsSeeingDetail,
     bookList,
+    setBookList,
     token,
     setToken,
     isLoginSuccessfully,
@@ -113,8 +114,9 @@ function App() {
         <Route exact path="/read/:id" component={BookReaderRoute} />
         {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/login">
-          {isLoginSuccessfully ? <Redirect to="/library" /> : <Login />}
+          {isLoginSuccessfully ? <Redirect to="/library" /> : <User />}
         </Route>
+        <Route exact path="/signup" component={User} />
       </BrowserRouter>
     </BookContext.Provider>
 

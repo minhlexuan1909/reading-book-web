@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { BookContext } from "../../App";
 import "./BookUpload.css";
 
 export const BookUpload = () => {
@@ -13,6 +14,7 @@ export const BookUpload = () => {
     viewCount: 0,
     content: "",
   });
+  const { token } = useContext(BookContext);
   const titleOnChangeHandler = (e) => {
     setNewBook({ ...newBook, title: e.target.value });
   };
@@ -51,6 +53,7 @@ export const BookUpload = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token["token"]}`,
       },
       body: JSON.stringify(newBook),
     });
