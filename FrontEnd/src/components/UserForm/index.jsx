@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { BookContext } from "../../App";
 import "./UserForm.css";
 import "../../animations.css";
 
 export const UserForm = ({ type }) => {
-  const { setToken, setIsLoginSuccessfully, setUserFullname } =
-    useContext(BookContext);
+  const { setToken, setUserFullname } = useContext(BookContext);
   const usernameFeildRef = useRef();
   const passwordFeildRef = useRef();
   const fullnameFeildRef = useRef();
@@ -53,14 +52,13 @@ export const UserForm = ({ type }) => {
       body: JSON.stringify({ username: username, password: password }),
     });
     resp = await resp.json();
-    // resp = await resp.json();
     console.log(resp);
     if (!resp["access_token"]) {
       setErrMessage(resp["detail"]);
     } else {
-      setToken("token", resp["access_token"]);
-      setUserFullname("fullname", resp["fullname"]);
-      setIsLoginSuccessfully(true);
+      setToken("token", resp["access_token"], { path: "/" });
+      // setUserFullname("fullname", resp["fullname"], { path: "/" });
+      setUserFullname(resp["fullname"]);
     }
   };
   const userFormSignupBtnOnClickHandler = async () => {
@@ -137,7 +135,7 @@ export const UserForm = ({ type }) => {
           )}
         </div>
         <div className="user-form__user-formBtn-wrapper">
-          <a
+          <div
             className="user-form__actionBtn"
             onClick={() => {
               type === "login"
@@ -148,7 +146,7 @@ export const UserForm = ({ type }) => {
             <div className="user-formBtn__text">
               {type === "login" ? "Đăng nhập" : "Đăng ký"}
             </div>
-          </a>
+          </div>
         </div>
         <div className="user-form__error-message">{errMessage}</div>
       </div>

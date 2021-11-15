@@ -1,6 +1,8 @@
-import React, { useRef, useState, useContext } from "react";
-import { BookContext } from "../../App";
 import "./BookUpload.css";
+
+import React, { useContext, useRef, useState } from "react";
+
+import { BookContext } from "../../App";
 
 export const BookUpload = () => {
   const uploadFileBtnRef = useRef();
@@ -57,7 +59,8 @@ export const BookUpload = () => {
       },
       body: JSON.stringify(newBook),
     });
-    return await resp.json();
+    console.log(await resp.json());
+    window.location.reload(false);
   };
   return (
     <div className="book-upload">
@@ -87,7 +90,7 @@ export const BookUpload = () => {
             >
               {newBook.image === "" ? (
                 <>
-                  <i class="fas fa-upload"></i>
+                  <i className="fas fa-upload"></i>
                   <div>Tải ảnh lên</div>
                 </>
               ) : (
@@ -129,13 +132,18 @@ export const BookUpload = () => {
                 style={{ display: "none" }}
                 onChange={handleFileUpload}
               />
-              <i class="fas fa-arrow-circle-up"></i>
+              <i className="fas fa-arrow-circle-up"></i>
               <span>
                 {newBook.content !== "" ? newBook.content : "Tải sách lên"}
               </span>
             </div>
             <div className="book-upload__addBookBtn">
-              <button onClick={addBookBtnOnClickHandler}>Thêm sách</button>
+              <button
+                className="btn--slide-to-right"
+                onClick={addBookBtnOnClickHandler}
+              >
+                Thêm sách
+              </button>
             </div>
           </div>
         </div>

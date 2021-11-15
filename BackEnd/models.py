@@ -23,4 +23,12 @@ class User(Base):
     username = Column(String, unique=True)
     password = Column(String)
     userRole = Column(String)
-    fullname = Column(String, unique=True)
+    fullname = Column(String)
+
+
+class UserBookCrossPref(Base):
+    __tablename__ = "userbookcrosspref"
+
+    id = Column(Integer, primary_key=True, index=True)
+    idUser = Column(Integer)
+    idBook = Column(Integer)

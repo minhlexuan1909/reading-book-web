@@ -8,3 +8,5 @@ App render lần 1 -> || BookReader chạy -> check bookList ở BookReader đã
 App render lần 1 -> || pass qua BookReader || -> useEffect -> bookList cập nhật -> App render lần 2 -> BookReader 
 
 border-radius cả cha và con để trắng bị vết trắng ở góc
+
+Ctrl + Alt + O: Sắp xếp lại import cho đúng thứ tự và tối ưu

@@ -13,7 +13,7 @@ reusable_oauth2 = HTTPBearer(scheme_name="Authorization")
 
 def validate_token(http_authorization_credentials=Depends(reusable_oauth2)):
     """
-    Decode JWT token to get username =&gt; return username
+    Decode JWT token
     """
     try:
         payload = jwt.decode(
@@ -23,13 +23,11 @@ def validate_token(http_authorization_credentials=Depends(reusable_oauth2)):
         )
         """ Convert int to timestamp """
         timestamp = datetime.fromtimestamp(payload["exp"])
-        # print(timestamp)
-        # print(type(timestamp))
         print(datetime.now())
         if timestamp < datetime.now():
             raise HTTPException(status_code=403, detail="Token expired")
         # return payload.get("username")
-        return "ok"
+        return payload
     except (jwt.PyJWTError, ValidationError):
         raise HTTPException(
             status_code=403,

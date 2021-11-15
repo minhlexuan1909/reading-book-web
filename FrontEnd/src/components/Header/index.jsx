@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import "./Header.css";
 import { BookContext } from "../../App";
 
@@ -8,11 +8,12 @@ export const Header = () => {
 
   const {
     setToken,
-    isLoginSuccessfully,
-    setIsLoginSuccessfully,
     setUserFullname,
     userLastname,
     isAdmin,
+    token,
+    idUser,
+    setIdUser,
   } = useContext(BookContext);
 
   const typeOnMouseOverHandler = () => {
@@ -32,14 +33,27 @@ export const Header = () => {
     userFuncRef.current.classList.remove("type-list--appear");
   };
   const logoutBtnOnClickHandler = () => {
-    setToken("token", "");
-    setIsLoginSuccessfully(false);
-    setUserFullname("fullname", "");
+    setToken("token", "", { path: "/" });
+    setUserFullname("");
   };
-
+  useEffect(() => {
+    async function fetchAPI() {
+      let resp = await fetch("http://127.0.0.1:8000/user/info", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.token}`,
+        },
+      });
+      resp = await resp.json();
+      console.log(resp);
+      setUserFullname(resp.fullname);
+      setIdUser(resp.idUser);
+    }
+    fetchAPI();
+  }, [token.token]);
   return (
     <div className="header">
-      {console.log("Admin la: " + isAdmin)}
       <a href="/" className="header__logo">
         <img src={require("../../img/white-logo.png").default} alt="" />
       </a>
@@ -78,7 +92,7 @@ export const Header = () => {
         </li>
       </ul>
       <div className="header__user">
-        {isLoginSuccessfully ? (
+        {token["token"] ? (
           <div
             className="header__hello-text header__btn"
             onMouseOver={userOnMouseOverHandler}
@@ -111,12 +125,14 @@ export const Header = () => {
         ) : (
           <>
             <div className="header-user__login-btn header__btn">
-              <a className="header-nav__text" href="./login">
+              <a className="header-nav__text" href="/login">
                 Đăng nhập
               </a>
             </div>
             <div className="header-user__register-btn header__btn">
-              <div className="header-nav__text">Đăng ký</div>
+              <a href="/signup" className="header-nav__text">
+                Đăng ký
+              </a>
             </div>
           </>
         )}

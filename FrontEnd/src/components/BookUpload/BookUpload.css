@@ -88,11 +88,17 @@ select {
   width: 100%;
   margin-top: 10px;
 }
+.book-upload__addBookBtn > button {
+  cursor: pointer;
+}
 .book-upload__addBookBtn button {
+  z-index: 1;
+  position: relative;
   background-color: orange;
+  border: 2px solid orange;
+  border-radius: 5px;
   color: white;
-  font-size: 15px;
-  border: none;
-  padding: 10px;
+  font-size: 16px;
+  padding: 5px 10px;
   font-weight: 600;
 }

@@ -1,6 +1,8 @@
 from os import access
 from pydantic import BaseModel
 
+from database import Base
+
 
 class BookInfoBase(BaseModel):
     image: str
@@ -48,3 +50,19 @@ class UserAuthenticate(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+class UserBookCrossPrefInfoBase(BaseModel):
+    idUser: int
+    idBook: int
+
+
+class UserBookCrossPrefCreate(UserBookCrossPrefInfoBase):
+    pass
+
+
+class UserBookCrossPrefInfo(UserBookCrossPrefInfoBase):
+    id: int
+
+    class Config:
+        orm_mode = True

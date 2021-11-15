@@ -3,7 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = (
-    "mysql+mysqlconnector://root:Luvut0th3m00n4ndb4ck@localhost:3306/webbook"
+    # "mysql+mysqlconnector://root:Luvut0th3m00n4ndb4ck@localhost:3306/webbook"
+    "sqlite:///./webbook.db"
 )
 
 engine = create_engine(

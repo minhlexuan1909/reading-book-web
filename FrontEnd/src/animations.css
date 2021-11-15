@@ -19,3 +19,24 @@
     transform: translateY(0%);
   }
 }
+
+.btn--slide-to-right:hover {
+  color: orange;
+}
+.btn--slide-to-right::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  transform-origin: center right;
+  transform: scaleX(0);
+  transition: transform 0.25s ease-in-out;
+}
+.btn--slide-to-right:hover::before {
+  transform-origin: center left;
+  transform: scaleX(1);
+}

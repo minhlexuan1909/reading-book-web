@@ -25,7 +25,6 @@ export const BookDetail = () => {
       <div className="book-detail__outside-zone">
         <div className="book-detail__wrapper">
           <div
-            // to="/library"
             className="book-detail__closeBtn"
             onClick={closeBtnOnClickHandler}
           >
@@ -49,7 +48,7 @@ export const BookDetail = () => {
                   ></div>
                   <a
                     href={`/read/${book.id}`}
-                    className="book-detail__readNowBtn"
+                    className="book-detail__readNowBtn btn--slide-to-right"
                   >
                     Đọc Ngay
                   </a>

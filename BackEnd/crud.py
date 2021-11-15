@@ -1,4 +1,6 @@
+import re
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.functions import mode
 import models, schemas
 import bcrypt
 from fastapi import HTTPException
@@ -76,9 +78,41 @@ def get_user_by_username(db: Session, username: str):
 
 def check_username_password(db: Session, user: schemas.UserAuthenticate):
     db_user_info = get_user_by_username(db, username=user.username)
-    return bcrypt.checkpw(user.password.encode(), db_user_info.password.encode())
+    # print(user.password)
+    # print(type(user.password))
+    # print(db_user_info.password)
+    # print(type(db_user_info.password))
+    return bcrypt.checkpw(user.password.encode(), db_user_info.password)
     # return {
     #     "user-pw": user.password.encode("utf-8"),
     #     "db-pw": db_user_info.password.encode("utf-8"),
     # }
     # print(type(db_user_info.password))
+
+
+def get_user_favourite(db: Session, id: int):
+    return (
+        db.query(models.UserBookCrossPref)
+        .filter(models.UserBookCrossPref.idUser == id)
+        .all()
+    )
+
+
+def get_user_book_pref(db: Session):
+    return db.query(models.UserBookCrossPref).all()
+
+
+def post_user_book_pref(db: Session, pref: schemas.UserBookCrossPrefCreate):
+    db_pref = models.UserBookCrossPref(idUser=pref.idUser, idBook=pref.idBook)
+    db.add(db_pref)
+    db.commit()
+    db.refresh(db_pref)
+    return db_pref
+
+
+def delete_user_book_pref(db: Session, pref: schemas.UserBookCrossPrefInfoBase):
+    db.query(models.UserBookCrossPref).filter(
+        models.UserBookCrossPref.idUser == pref.idUser,
+        models.UserBookCrossPref.idBook == pref.idBook,
+    ).delete()
+    db.commit()

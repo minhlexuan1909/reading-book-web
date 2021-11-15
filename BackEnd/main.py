@@ -154,13 +154,16 @@ def login(user: schemas.UserAuthenticate, db: Session = Depends(get_db)):
 
             access_token = create_access_token(
                 # Đẩy quyền user vào data để mã hoá thành token
-                data={"username": user.username, "userRole": db_user.userRole},
+                data={
+                    "idUser": db_user.id,
+                    "username": db_user.username,
+                    "userRole": db_user.userRole,
+                    "fullname": db_user.fullname,
+                },
                 expires_delta=access_token_expires,
             )
             return {
                 "access_token": access_token,
-                "token_type": "Bearer",
-                "fullname": db_user.fullname,
             }
     # return {"tmp": db_user}
 
@@ -199,6 +202,36 @@ def get_user(db: Session = Depends(get_db)):
     return crud.get_user(db=db)
 
 
+@app.get("/user/info")
+def get_user_info(userInfo=Depends(validate_token)):
+    return userInfo
+
+
 @app.get("/isAdmin", dependencies=[Depends(verify_admin)])
 def get_isAdmin():
     return True
+
+
+# user favourite
+@app.get("/favourite")
+def get_user_book_pref(db: Session = Depends(get_db)):
+    return crud.get_user_book_pref(db=db)
+
+
+@app.get("/favourite/{id}")
+def get_user_favourite(id: int, db: Session = Depends(get_db)):
+    return crud.get_user_favourite(db=db, id=id)
+
+
+@app.post("/favourite")
+def post_user_book_pref(
+    pref: schemas.UserBookCrossPrefCreate, db: Session = Depends(get_db)
+):
+    return crud.post_user_book_pref(db=db, pref=pref)
+
+
+@app.delete("/favourite")
+def delete_user_book_pref(
+    pref: schemas.UserBookCrossPrefInfoBase, db: Session = Depends(get_db)
+):
+    return crud.delete_user_book_pref(db=db, pref=pref)

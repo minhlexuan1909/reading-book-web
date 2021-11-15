@@ -40,9 +40,12 @@
 .book-card__deleteBtn {
   z-index: 1;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  color: orange;
+  right: 10px;
+  top: 10px;
+  line-height: 0;
   font-size: 25px;
+  cursor: pointer;
 }
 .book-card__image {
   /* flex-grow: 1; */
@@ -95,29 +98,15 @@
   background-color: orange;
   border: 2px solid orange;
   color: white;
-  margin-right: 14px;
+  margin-right: 20px;
   cursor: pointer;
 }
-.book-card__detail-btn:hover {
+
+.book-card__favourite-btn {
+  font-size: 20px;
   color: orange;
 }
-.book-card__detail-btn::before {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: white;
-  transform-origin: center right;
-  transform: scaleX(0);
-  transition: transform 0.25s ease-in-out;
-}
-.book-card__detail-btn:hover::before {
-  transform-origin: center left;
-  transform: scaleX(1);
-}
+
 .book-card__preview-btn {
   border: 2px solid orange;
   color: orange;
