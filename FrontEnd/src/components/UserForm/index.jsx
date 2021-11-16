@@ -57,7 +57,6 @@ export const UserForm = ({ type }) => {
       setErrMessage(resp["detail"]);
     } else {
       setToken("token", resp["access_token"], { path: "/" });
-      // setUserFullname("fullname", resp["fullname"], { path: "/" });
       setUserFullname(resp["fullname"]);
     }
   };

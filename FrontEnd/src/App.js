@@ -2,14 +2,15 @@ import "./App.css";
 
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Route } from "react-router-dom";
 import {
+  Route,
   BrowserRouter,
   Redirect,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 import { User } from "./components/User";
 import { BookDetailRoute } from "./Route/BookDetailRoute";
+import { BookFavouriteRoute } from "./Route/BookFavouriteRoute";
 import { BookLibraryRoute } from "./Route/BooklLibaryRoute";
 import { BookReaderRoute } from "./Route/BookReaderRoute";
 import { BookTypeRoute } from "./Route/BookTypeRoute";
@@ -22,13 +23,14 @@ export { BookContext };
 function App() {
   const [isSeeingDetail, setIsSeeingDetail] = useState(false);
   const [bookList, setBookList] = useState([]);
+  const [searchBookList, setSearchBookList] = useState([]);
   const [token, setToken] = useCookies(["token"]);
   const [userFullname, setUserFullname] = useState("");
   const [userLastname, setUserLastname] = useState("");
   const [isAdmin, setIsAdmin] = useState(null);
   const [idUser, setIdUser] = useState(null);
   const [isLoaded, setIsLoad] = useState(null);
-  const [favourite, setFavourite] = useState([]);
+  const [favourite, setFavourite] = useState(null);
   useEffect(() => {
     async function fetchAPI() {
       let resp = await fetch("http://127.0.0.1:8000/book", {
@@ -90,6 +92,8 @@ function App() {
     setIsSeeingDetail,
     bookList,
     setBookList,
+    searchBookList,
+    setSearchBookList,
     token,
     setToken,
     userFullname,
@@ -134,6 +138,13 @@ function App() {
         <Route exact path="/read/:id">
           {token["token"] ? <BookReaderRoute /> : <Redirect to="/login" />}
         </Route>
+        {isLoaded ? (
+          <Route exact path="/favourite">
+            {token["token"] ? <BookFavouriteRoute /> : <Redirect to="/login" />}
+          </Route>
+        ) : (
+          ""
+        )}
         <Route exact path="/upload" component={BookUploadRoute}>
           {isLoaded ? (
             isAdmin ? (
@@ -151,15 +162,6 @@ function App() {
         <Route exact path="/signup" component={User} />
       </BrowserRouter>
     </BookContext.Provider>
-
-    // <div style={{ position: "relative" }}>
-    //   {/* <div className="overlay"></div> */}
-    //   {/* <Header></Header> */}
-    //   {/* <Home></Home> */}
-    //   {/* <Books></Books> */}
-    //   {/* <BookLibrary></BookLibrary> */}
-
-    // </div>
   );
 }
 

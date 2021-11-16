@@ -1,20 +1,15 @@
-import React, { useRef, useContext, useEffect } from "react";
 import "./Header.css";
+
+import React, { useContext, useEffect, useRef } from "react";
+
 import { BookContext } from "../../App";
 
 export const Header = () => {
   const typeListRef = useRef();
   const userFuncRef = useRef();
 
-  const {
-    setToken,
-    setUserFullname,
-    userLastname,
-    isAdmin,
-    token,
-    idUser,
-    setIdUser,
-  } = useContext(BookContext);
+  const { setToken, setUserFullname, userLastname, isAdmin, token, setIdUser } =
+    useContext(BookContext);
 
   const typeOnMouseOverHandler = () => {
     typeListRef.current.classList.remove("type-list--disappear");
@@ -46,7 +41,6 @@ export const Header = () => {
         },
       });
       resp = await resp.json();
-      console.log(resp);
       setUserFullname(resp.fullname);
       setIdUser(resp.idUser);
     }
@@ -83,6 +77,11 @@ export const Header = () => {
                 Tài liệu
               </a>
             </li>
+            <li className="type-list__item">
+              <a className="type-list__text" href="/type/truyen">
+                Truyện
+              </a>
+            </li>
           </ul>
         </li>
         <li className="header-nav__item header__btn">
@@ -110,6 +109,11 @@ export const Header = () => {
               ) : (
                 <></>
               )}
+              <div className="type-list__item">
+                <a href="/favourite" className="type-list__text">
+                  Danh sách yêu thích
+                </a>
+              </div>
               <div
                 className="header__logoutBtn"
                 onClick={logoutBtnOnClickHandler}

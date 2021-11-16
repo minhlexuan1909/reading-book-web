@@ -41,9 +41,6 @@ export const BookUpload = () => {
   const handleFileUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
       let file = e.target.files[0];
-      // this.setState({
-      //   image: URL.createObjectURL(img),
-      // });
       setNewBook({ ...newBook, content: file.name });
     }
   };
@@ -109,6 +106,7 @@ export const BookUpload = () => {
             <select name="" id="" onChange={bookTypeOnChangeHandler}>
               <option value="Văn học">Văn học</option>
               <option value="Tài liệu">Tài liệu</option>
+              <option value="Truyện">Truyện</option>
             </select>
             <label htmlFor="">Tác giả</label>
             <input

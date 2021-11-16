@@ -1,8 +1,11 @@
-import React from "react";
-import "./User.css";
 import "../../animations.css";
-import { UserForm } from "../UserForm";
+import "./User.css";
+
+import React from "react";
 import { useLocation } from "react-router-dom";
+
+import { UserForm } from "../UserForm";
+
 export const User = () => {
   const { pathname } = useLocation();
 

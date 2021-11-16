@@ -1,11 +1,13 @@
+import "../../animations.css";
+import "./BookDetail.css";
+
 import React, { useContext } from "react";
 import {
-  useParams,
   useHistory,
+  useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+
 import { BookContext } from "../../App";
-import "./BookDetail.css";
-import "../../animations.css";
 
 export const BookDetail = () => {
   let { id } = useParams();

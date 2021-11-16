@@ -1,25 +1,16 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 import { BookLibrary } from "../../components/BookLibrary";
 import { Header } from "../../components/Header";
 import { Search } from "../../components/Search";
 
-export const BookTypeRoute = () => {
+export const BookFavouriteRoute = () => {
   const [keySearch, setKeySearch] = useState("");
-  let { type } = useParams();
-  if (type === "van-hoc") {
-    type = "Văn học";
-  } else if (type === "tai-lieu") {
-    type = "Tài liệu";
-  } else if (type === "truyen") {
-    type = "Truyện";
-  }
   return (
     <div>
       <Header></Header>
       <Search keySearch={keySearch} setKeySearch={setKeySearch}></Search>
-      <BookLibrary title={type}></BookLibrary>
+      <BookLibrary title={"Danh sách yêu thích"}></BookLibrary>
     </div>
   );
 };

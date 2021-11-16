@@ -1,15 +1,13 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.params import Depends
-from pydantic.main import BaseModel
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
-from security import validate_token, verify_admin
-from app_utils import create_access_token
+from security import validate_token, verify_admin, create_access_token
 import re
-
 import models, schemas, crud
 from database import engine, SessionLocal
+from datetime import timedelta
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -78,68 +76,10 @@ def delete_book(id: int, db: Session = Depends(get_db)):
     return crud.delete_book(db=db, id=id)
 
 
-from datetime import datetime, timedelta
-from typing import Union, Any
-import jwt
-
-
-class LoginRequest(BaseModel):
-    username: str
-    password: str
-
-
-def verify_password(username, password):
-    if username == "admin" and password == "admin":
-        return True
-    return False
-
-
-# SECURITY_ALGORITHM = "HS256"
-# SECRET_KEY = "123456"
-
-
-# def generate_token(username: Union[str, Any]):
-#     expire = datetime.utcnow() + timedelta(
-#         # seconds=60 * 60 * 24 * 3  # Expired after 3 days
-#         seconds=60
-#     )
-#     to_encode = {"exp": expire, "username": username}
-#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=SECURITY_ALGORITHM)
-#     return encoded_jwt
-
-
-# def verify_user(username: str, password: str, db: Session = Depends(get_db)):
-#     userListModel = crud.get_user(db=db)
-#     userList = [item.__dict__ for item in userListModel]
-#     usernameList = [item["username"] for item in userList]
-#     if username not in usernameList:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     else:
-#         for account in userList:
-#             if username == account["username"]:
-#                 if password != account["password"]:
-#                     raise HTTPException(status_code=404, detail="Wrong password")
-#                 else:
-#                     return True
-
-
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 @app.post("/login")
-# def login(request_data: LoginRequest):
-# if verify_password(username=request_data.username, password=request_data.password):
-#     token = generate_token(request_data.username)
-#     return {"token": token}
-# else:
-#     raise HTTPException(status_code=404, detail="User not found")
-
-# def login(request_data: LoginRequest, db: Session = Depends(get_db)):
-#     if verify_user(
-#         username=request_data.username, password=request_data.password, db=db
-#     ):
-#         token = generate_token(request_data.username)
-#         return {"token": token}
 def login(user: schemas.UserAuthenticate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_username(db=db, username=user.username)
     if db_user is None:
@@ -165,7 +105,6 @@ def login(user: schemas.UserAuthenticate, db: Session = Depends(get_db)):
             return {
                 "access_token": access_token,
             }
-    # return {"tmp": db_user}
 
 
 @app.post("/user", response_model=schemas.UserInfo)

@@ -1,7 +1,9 @@
+import "./BookReader.css";
+
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
+
 import { BookContext } from "../../App";
-import "./BookReader.css";
 
 export const BookReader = () => {
   const { id } = useParams();

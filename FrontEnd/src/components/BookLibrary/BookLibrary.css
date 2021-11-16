@@ -1,8 +1,8 @@
 .book-lib {
   background-color: white;
-  /* height: 1000px; */
   padding: 0px 110px;
 }
+
 .book-lib__section-title {
   font-weight: bolder;
   color: orange;
@@ -16,9 +16,6 @@
   width: 100%;
 }
 .book-lib__book-card {
-  /* flex-grow: 1; */
-  /* background-color: white; */
-
   margin-top: 20px;
   padding: 10px 10px;
   width: 20%;
@@ -54,7 +51,6 @@
   justify-content: center;
   background-position: center;
   background-size: cover;
-  /* background-image: url(../../img/chuyen-con-meo-day-hai-au-bay-tb-2017.jpg); */
 }
 .book-card__image > img {
   max-width: 100%;
@@ -104,7 +100,7 @@
 
 .book-card__favourite-btn {
   font-size: 20px;
-  color: orange;
+  color: red;
 }
 
 .book-card__preview-btn {
@@ -121,16 +117,5 @@
 @media screen and (max-width: 1050px) {
   .book-lib__book-card {
     width: 33.33%;
-  }
-}
-/* _________________________________________________ */
-@keyframes goUp {
-  from {
-    opacity: 0;
-    transform: translateY(50%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
   }
 }

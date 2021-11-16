@@ -1,6 +1,4 @@
-import re
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.functions import mode
 import models, schemas
 import bcrypt
 from fastapi import HTTPException
@@ -47,6 +45,7 @@ def put_book(db: Session, book: schemas.BookCreate, id: int):
 
 def delete_book(db: Session, id: int):
     db.query(models.Book).filter(models.Book.id == id).delete()
+    db.query(models.UserBookCrossPref).filter(models.UserBookCrossPref.idBook == id).delete()
     db.commit()
 
 
@@ -78,16 +77,7 @@ def get_user_by_username(db: Session, username: str):
 
 def check_username_password(db: Session, user: schemas.UserAuthenticate):
     db_user_info = get_user_by_username(db, username=user.username)
-    # print(user.password)
-    # print(type(user.password))
-    # print(db_user_info.password)
-    # print(type(db_user_info.password))
     return bcrypt.checkpw(user.password.encode(), db_user_info.password)
-    # return {
-    #     "user-pw": user.password.encode("utf-8"),
-    #     "db-pw": db_user_info.password.encode("utf-8"),
-    # }
-    # print(type(db_user_info.password))
 
 
 def get_user_favourite(db: Session, id: int):

@@ -7,7 +7,7 @@ import { useState } from "react/cjs/react.development";
 
 import { BookContext } from "../../App";
 
-export const BookLibrary = ({ title }) => {
+export const BookLibrary = ({ title, keySearch }) => {
   const {
     bookList,
     setBookList,
@@ -22,12 +22,13 @@ export const BookLibrary = ({ title }) => {
   const bodyScroll = require("body-scroll-toggle");
   const [bookShow, setBookShow] = useState([]);
   const checkFavourite = (idBook) => {
-    if (favourite.length === 0) return false;
+    if (favourite === null || favourite.length === 0) return false;
     const found = favourite.some(
       (item) => item.idBook === idBook && item.idUser === idUser
     );
     return found;
   };
+
   const detailBtnOnClickHandler = (id) => {
     const str = `${url.pathname}/${id}`;
     history.push(str);
@@ -35,6 +36,7 @@ export const BookLibrary = ({ title }) => {
     document.body.style.position = "fixed";
     document.body.style.top = `-${window.scrollY}px`;
   };
+
   const deleteBtnOnClickHandler = async (id) => {
     let resp = await fetch(`http://127.0.0.1:8000/book/${id}`, {
       method: "DELETE",
@@ -48,6 +50,7 @@ export const BookLibrary = ({ title }) => {
     const tmpBookList = bookList.filter((item) => item.id !== id);
     setBookList([...tmpBookList]);
   };
+
   const favouriteBtnOnClickHandler = async (idBook, e) => {
     const status = e.currentTarget.firstChild.classList[0];
     if (status === "inactive--favourite") {
@@ -78,18 +81,40 @@ export const BookLibrary = ({ title }) => {
       setFavourite([...tmpFavourite]);
     }
   };
+
   useEffect(() => {
     if (title === "Thư viện") {
       setBookShow(bookList);
-    } else if (title === "Top sách") {
-      const tmpBookList = [...bookList];
-      tmpBookList.sort((item1, item2) => item2.viewCount - item1.viewCount);
-      setBookShow(tmpBookList.slice(0, 5));
     } else if (title === "Văn học" || title === "Tài liệu") {
       const tmpBookList = [...bookList];
       setBookShow(tmpBookList.filter((item) => item.bookType === title));
     }
   }, [bookList]);
+
+  useEffect(() => {
+    if (title === "Danh sách yêu thích" && favourite !== null) {
+      console.log(favourite);
+      const tmpBookList = [...bookList];
+      setBookShow(
+        tmpBookList.filter((item) =>
+          favourite.some((favBook) => favBook.id === item.id)
+        )
+      );
+    }
+  }, [favourite]);
+
+  useEffect(() => {
+    if (keySearch === "") {
+      setBookShow([...bookList]);
+    } else {
+      const tmpBookList = [...bookList];
+      setBookShow(
+        tmpBookList.filter((item) =>
+          item.title.toLowerCase().includes(keySearch)
+        )
+      );
+    }
+  }, [keySearch]);
   return (
     <div className="book-lib">
       <div className="book-lib-wrapper">
