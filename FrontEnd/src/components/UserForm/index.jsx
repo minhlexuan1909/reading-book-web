@@ -147,6 +147,13 @@ export const UserForm = ({ type }) => {
             </div>
           </div>
         </div>
+        {type === "login" ? (
+          <div className="user-form__signup-redirect">
+            <a href="/signup">Chưa có tài khoản? Đăng ký ngay</a>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="user-form__error-message">{errMessage}</div>
       </div>
     </div>

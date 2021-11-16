@@ -80,6 +80,16 @@
   height: 0;
   margin: -3px;
 }
+.user-form__signup-redirect {
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+  margin-top: 20px;
+}
+.user-form__signup-redirect > a {
+  color: orange;
+  font-weight: 600;
+}
 .user-form__error-message {
   margin-top: 20px;
   width: 100%;
