@@ -97,7 +97,7 @@ export const BookLibrary = ({ title, keySearch }) => {
       const tmpBookList = [...bookList];
       setBookShow(
         tmpBookList.filter((item) =>
-          favourite.some((favBook) => favBook.id === item.id)
+          favourite.some((favBook) => favBook.idBook === item.id)
         )
       );
     }

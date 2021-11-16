@@ -109,6 +109,12 @@ def login(user: schemas.UserAuthenticate, db: Session = Depends(get_db)):
 
 @app.post("/user", response_model=schemas.UserInfo)
 def post_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    if user.username == "" or user.password == "" or user.fullname == "":
+        raise HTTPException(status_code=400, detail="Bạn phải điền đầy đủ thông tin")
+    db_user = crud.get_user_by_username(db=db, username=user.username)
+    if db_user is not None:
+        raise HTTPException(status_code=403, detail="Tên tài khoản đã tồn tại")
+
     password = user.password
     # calculating the length
     if len(password) < 6:
@@ -132,6 +138,10 @@ def post_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # searching for symbols
     if re.search(r"\W", password) is None:
         raise HTTPException(status_code=403, detail="Mật khẩu phải chứa ký tự đặc biệt")
+
+    db_user = crud.get_user_by_fullname(db=db, fullname=user.fullname)
+    if db_user is not None and (db_user.fullname == user.fullname):
+        raise HTTPException(status_code=403, detail="Bạn đã có tài khoản rồi")
 
     return crud.post_user(user=user, db=db)
 

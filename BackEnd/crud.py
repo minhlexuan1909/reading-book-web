@@ -45,7 +45,9 @@ def put_book(db: Session, book: schemas.BookCreate, id: int):
 
 def delete_book(db: Session, id: int):
     db.query(models.Book).filter(models.Book.id == id).delete()
-    db.query(models.UserBookCrossPref).filter(models.UserBookCrossPref.idBook == id).delete()
+    db.query(models.UserBookCrossPref).filter(
+        models.UserBookCrossPref.idBook == id
+    ).delete()
     db.commit()
 
 
@@ -73,6 +75,10 @@ def get_user(db: Session):
 
 def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
+
+
+def get_user_by_fullname(db: Session, fullname: str):
+    return db.query(models.User).filter(models.User.fullname == fullname).first()
 
 
 def check_username_password(db: Session, user: schemas.UserAuthenticate):
