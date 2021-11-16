@@ -9,7 +9,7 @@ export const BookFavouriteRoute = () => {
   return (
     <div>
       <Header></Header>
-      <Search keySearch={keySearch} setKeySearch={setKeySearch}></Search>
+      <Search></Search>
       <BookLibrary title={"Danh sách yêu thích"}></BookLibrary>
     </div>
   );

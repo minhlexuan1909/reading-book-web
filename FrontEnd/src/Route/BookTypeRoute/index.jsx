@@ -18,7 +18,7 @@ export const BookTypeRoute = () => {
   return (
     <div>
       <Header></Header>
-      <Search keySearch={keySearch} setKeySearch={setKeySearch}></Search>
+      <Search></Search>
       <BookLibrary title={type}></BookLibrary>
     </div>
   );

@@ -31,6 +31,7 @@ function App() {
   const [idUser, setIdUser] = useState(null);
   const [isLoaded, setIsLoad] = useState(null);
   const [favourite, setFavourite] = useState(null);
+  const [keySearch, setKeySearch] = useState("");
   useEffect(() => {
     async function fetchAPI() {
       let resp = await fetch("http://127.0.0.1:8000/book", {
@@ -106,6 +107,8 @@ function App() {
     setIdUser,
     favourite,
     setFavourite,
+    keySearch,
+    setKeySearch,
   };
   return (
     <BookContext.Provider value={providerValue}>

@@ -4,9 +4,9 @@ import React, { useContext, useRef } from "react";
 
 import { BookContext } from "../../App";
 
-export const Search = ({ keySearch, setKeySearch }) => {
+export const Search = () => {
   const input = useRef();
-  useContext(BookContext);
+  const { keySearch, setKeySearch } = useContext(BookContext);
   const searchBtnOnClickHandler = () => {
     setKeySearch(input.current.value.toLowerCase());
   };

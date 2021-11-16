@@ -7,7 +7,7 @@ import { useState } from "react/cjs/react.development";
 
 import { BookContext } from "../../App";
 
-export const BookLibrary = ({ title, keySearch }) => {
+export const BookLibrary = ({ title }) => {
   const {
     bookList,
     setBookList,
@@ -16,6 +16,7 @@ export const BookLibrary = ({ title, keySearch }) => {
     favourite,
     setFavourite,
     idUser,
+    keySearch,
   } = useContext(BookContext);
   const history = useHistory();
   const url = useLocation();
@@ -117,6 +118,7 @@ export const BookLibrary = ({ title, keySearch }) => {
   }, [keySearch]);
   return (
     <div className="book-lib">
+      {console.log(keySearch)}
       <div className="book-lib-wrapper">
         <div className="book-lib__most-read-section">
           <div className="book-lib__section-title">{title}</div>
